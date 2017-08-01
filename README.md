@@ -2,7 +2,7 @@
 
 Python 3
 
-and the following packages (all found in `requirement.txt`:
+and the following packages (all found in `requirement.txt`):
 
 * beautifulsoup4==4.6.0
 * cycler==0.10.0
