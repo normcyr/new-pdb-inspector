@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 def searchPDB(searchTerm):
 
     # use these entries for test purposes
-    pdbtest = '3vtv' #BUG: this structure uses entityNr instead of nr_entities
-    #pdbtest = '4xkl'
+    #pdbtest = '3vtv' #BUG: this structure uses entityNr instead of nr_entities
+    pdbtest = '4xkl'
     #pdbtest = '5v4k'
     searchStructures = make_query(pdbtest, querytype='AdvancedKeywordQuery')
 
@@ -24,6 +24,8 @@ def searchPDB(searchTerm):
 
 def extractData(maxDepositionDate, foundStructures):
     results = {}
+    moleculeName = []
+    entityTitle = ''
 
     for entry in foundStructures:
         entityInfo = describe_pdb(entry)
@@ -34,10 +36,9 @@ def extractData(maxDepositionDate, foundStructures):
             entityTitle = entityInfo['title']
             entityExtraInfo = get_all_info(entry)
 
-            #this needs to be fixed so I can get all molecule names if nr_entities > 1
             if int(describe_pdb(entry)['nr_entities']) > 1:
                 for mol in entityExtraInfo['polymer']:
-                    moleculeName = mol.get('macroMolecule').get('@name')
+                    moleculeName.append(mol.get('macroMolecule').get('@name'))
 
             elif int(describe_pdb(entry)['nr_entities']) == 1:
                 moleculeName = entityExtraInfo.get('polymer').get('macroMolecule').get('@name')
@@ -63,7 +64,7 @@ def main():
     results = extractData(maxDepositionDate, foundStructures)
     #message = printOutput(foundStructures, searchTerm, results, maxDepositionDate)
     #print(message)
-
+    print(results)
     return(results)
 
 if __name__ == '__main__':
