@@ -26,9 +26,10 @@ and the following packages (all found in `requirement.txt`):
 
 ### Step 1 - Get the data
 
-- fetch the new structures information
+- ~~fetch the new structures information~~
+- ~~parse the data to json format~~
 - download the pdb file
-- parse the data to json format
+- make sure everything is well organized
 
 ### Step 2 - Output the data
 
